@@ -20,7 +20,7 @@ const NavbarComponent = () => {
       </Navbar.Brand>
       <Navbar.Content hideIn="xs" variant="highlight-rounded">
         <Navbar.Link href="/mainFeed">Main Feed</Navbar.Link>
-        <Navbar.Link href="/createArticle">Create Articvle</Navbar.Link>
+        <Navbar.Link href="/createArticle">Create Article</Navbar.Link>
       </Navbar.Content>
       <Navbar.Content>
         {!user ? (
