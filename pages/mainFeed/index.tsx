@@ -14,6 +14,7 @@ const MainFeed: NextPage = () => {
 
   useEffect(() => {
     getArticles();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getArticles = async () => {
@@ -40,6 +41,7 @@ const MainFeed: NextPage = () => {
         Check out articles from users
       </Text>
       {articles.map((article) => (
+         // eslint-disable-next-line react/jsx-key
          <ArticleCard article={article} />
       ))}
     </>
