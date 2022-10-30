@@ -10,7 +10,7 @@ const Home: NextPage = () => {
       <>
       <Text h2>The future of article sharing</Text>
       <Spacer y={1} />
-      <Text size="$1g">
+      <Text size="$lg">
           SharedArticles allows you to create and share articles.
       </Text>
       </>

@@ -45,7 +45,7 @@ const CreateArticle: NextPage = () => {
     }
   }
 
-  console.log(articleData)
+ // console.log(articleData)
 
   return (
     
