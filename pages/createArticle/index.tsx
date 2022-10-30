@@ -3,6 +3,7 @@ import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/router';
 import { Text, Textarea, Grid, Button } from '@nextui-org/react';
 import { withPageAuth } from '@supabase/auth-helpers-nextjs';
+import { useState } from 'react';
 
 // localhost:3000/createArticle
 
@@ -10,6 +11,41 @@ const CreateArticle: NextPage = () => {
   const supabaseClient = useSupabaseClient();
   const user = useUser();
   const router = useRouter();
+
+  const initialState = {
+    title: "",
+    content: ""
+  }
+
+  const [articleData, setArticleData] = useState(initialState);
+
+  const handleChange = (e: any) => {
+    setArticleData({...articleData, [e.target.name] : e.target.value})
+  }
+
+  const createArticle = async () => {
+    try {
+
+        const {data, error} = await supabaseClient
+            .from("articles")
+            .insert([{
+                title:  articleData.title,
+                content: articleData.content,
+                user_email: user?.email?.toLowerCase(),
+                user_id: user?.id
+            }])
+            .single()
+        if (error) throw error;
+
+        setArticleData(initialState);
+        router.push("/mainFeed");
+
+    } catch (error: any) {
+        alert(error.message);
+    }
+  }
+
+  console.log(articleData)
 
   return (
     
@@ -23,6 +59,7 @@ const CreateArticle: NextPage = () => {
           fullWidth={true}
           rows={1}
           size="xl"
+          onChange={handleChange}
         ></Textarea>
       </Grid>
       <Text h3>Article Text</Text>
@@ -34,12 +71,13 @@ const CreateArticle: NextPage = () => {
           fullWidth={true}
           rows={6}
           size="xl"
+          onChange={handleChange}
         ></Textarea>
       </Grid>
       <Grid xs={12}>
         <Text>Posting as {user?.email}</Text>
       </Grid>
-      <Button>Create Article</Button>
+      <Button onPress={createArticle}>Create Article</Button>
     </Grid.Container>
 
   );
